@@ -13,9 +13,9 @@ const os = platform.os.toString()
 
 const sendMessage = (content) => {
   if (os.match(/Android/i))
-    window.location.href(`sms:1922?body=${content}`)
+    window.location.replace(`sms:1922?body=${content}`)
   if (os.match(/iOS/i))
-    window.location.href(`sms:1922&body=${content}`)
+    window.location.replace(`sms:1922&body=${content}`)
   console.error('Error: not legal OS')
 }
 
