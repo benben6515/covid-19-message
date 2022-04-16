@@ -53,7 +53,7 @@ const setFilterData = () => {
     <button
       class="m-3 text-sm btn"
       :disabled="!state.searchString"
-      @click="state.setFilterData"
+      @click="setFilterData"
     >
       Go
     </button>
