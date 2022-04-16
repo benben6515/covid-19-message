@@ -3,7 +3,6 @@ import { reactive } from 'vue'
 import platform from 'platform'
 import data from '/data.json'
 
-// const searchString = ref('')
 const state = reactive({
   searchString: '',
   filterData: data,
@@ -75,7 +74,7 @@ const setFilterData = () => {
       <button
         class="bg-green-500 px-1 rounded-md"
         dark="bg-green-800"
-        @click="sendMessage(chunk.content)"
+        @click="sendMessage(chunk.message)"
       >
         發送
       </button>
