@@ -70,7 +70,7 @@ const handleDelete = (id: any) => {
       <GoBack />
       <button
         class="btn m-3 text-sm mt-8"
-        :disabled="!state.newTitle || !state.newTitle"
+        :disabled="!state.newName || !state.newContent"
         @click="handleAddOrEdit"
       >
         Add

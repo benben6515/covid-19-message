@@ -5,7 +5,7 @@ import platform from 'platform'
 import { localStorage } from '~/composables'
 
 const data: any = localStorage.data
-// console.log(data)
+console.log(data)
 
 const state = reactive({
   searchString: '',
