@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import platform from 'platform'
-import data from '/data.json'
+// import data from '/data.json'
+import { localStorage } from '~/composables'
+
+const data: any = localStorage.data
+// console.log(data)
 
 const state = reactive({
   searchString: '',
@@ -9,30 +13,27 @@ const state = reactive({
   data,
 })
 
-const os = platform.os.toString()
+const os = platform?.os?.toString()
 
-const sendMessage = (content) => {
-  if (os.match(/Android/i))
+const sendMessage = (content: any) => {
+  if (os && os.match(/Android/i))
     window.location.replace(`sms:1922?body=${content}`)
-  if (os.match(/iOS/i))
+  if (os && os.match(/iOS/i))
     window.location.replace(`sms:1922&body=${content}`)
   console.error('Error: not legal OS')
 }
 
 const setFilterData = () => {
-  state.filterData = data.filter(e => e.name.includes(state.searchString))
+  state.filterData = data
+    .filter((e: { name: string | string[] }) => e.name.includes(state.searchString))
+    .sort((a: { visitedTime: number }, b: { visitedTime: number }) => a.visitedTime - b.visitedTime)
+    .filter((e: any, i: number) => i <= 10)
 }
 
 </script>
 
 <template>
-  <div
-    class="title m-4"
-    font="sans bold"
-    text="2xl shadow-md"
-  >
-    Message to 1922
-  </div>
+  <MessageTitle />
 
   <input
     id="input"
@@ -55,7 +56,7 @@ const setFilterData = () => {
       :disabled="!state.searchString"
       @click="setFilterData"
     >
-      Go
+      Search
     </button>
   </div>
 
@@ -65,8 +66,8 @@ const setFilterData = () => {
     <div
       v-for="chunk in state.filterData"
       :key="chunk.id"
-      class="flex justify-between bg-zinc-300"
-      dark="bg-zinc-700"
+      class="flex justify-between bg-zinc-100"
+      dark="bg-zinc-800"
     >
       <div class="px-2">
         {{ chunk.name }}
@@ -81,12 +82,3 @@ const setFilterData = () => {
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.title {
-  background: -webkit-linear-gradient(315deg, #4d9 25% ,#67f);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-</style>

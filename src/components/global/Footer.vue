@@ -13,9 +13,17 @@ import { isDark, toggleDark } from '~/composables'
       class="icon-btn"
       i-carbon-logo-github
       rel="noreferrer"
-      href="https://github.com/antfu/benben6515"
+      href="https://github.com/benben6515"
       target="_blank"
       title="GitHub"
+    />
+
+    <a
+      class="icon-btn"
+      i-carbon-edit
+      rel="noreferrer"
+      href="/message/edit"
+      title="Edit message"
     />
   </nav>
 </template>

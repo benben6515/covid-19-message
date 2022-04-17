@@ -1,3 +1,33 @@
+# 1922 Message recorder
+
+> Too lazy to scan QRcode on those often go location
+
+Imagine that scenario, you are in a famous location.
+There are a lot of customer in a line to scan the QRcode, and so do you.(because you are a good law-abiding person, right?)
+So you have to stand at last position of the line, but you just want to scan the QRcode and send message.
+That why I build this project to deal with that scenario.
+
+### DEMO
+
+- https://covid-19-message.netlify.app/message
+- `Note`: the desktop browser **CAN'T** send message(because it is not mobile phone).
+- use mobile phone to get better experience.
+
+### Description
+
+- open it, and click button to send message to 1922
+- search it, search your record data
+- TODO: edit it, customize your personal location
+- TODO: delete it, customize your personal location
+
+### This a side project base on `Vitesse` lite version
+
+I try to develop this project with Vitesse, it was awesome.
+Respect `Aatfu` again.
+
+<details>
+ <summary>Read more about Vitesse</summary>
+
 <p align='center'>
   <img src='https://user-images.githubusercontent.com/11247099/111864893-a457fd00-899e-11eb-9f05-f4b88987541d.png' alt='Vitesse - Opinionated Vite Starter Template' width='600'/>
 </p>
@@ -85,3 +115,5 @@ npx degit antfu/vitesse-lite my-vitesse-app
 cd my-vitesse-app
 pnpm i # If you don't have pnpm installed, run: npm install -g pnpm
 ```
+
+</details>

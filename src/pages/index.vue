@@ -46,5 +46,7 @@ const go = () => {
         Go
       </button>
     </div>
+
+    <p>This page is template page!</p>
   </div>
 </template>

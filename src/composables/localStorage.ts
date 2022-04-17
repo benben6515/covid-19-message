@@ -9,13 +9,18 @@ interface IData {
 
 const STORAGE_KEY = 'st-message-data'
 
-const getLocalStorage = window.localStorage.get(STORAGE_KEY)
+const getLocalStorage = window.localStorage.getItem(STORAGE_KEY)
+  ? JSON.parse(window.localStorage.getItem(STORAGE_KEY) as string)
+  : ''
+
+console.log(getLocalStorage)
 
 // TODO
-// const saveData: void = (data: IData[]) => window.localStorage.set(STORAGE_KEY, data)
+const save = (data: any) => window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
 
-const state = reactive({
+const localStorage = reactive({
   data: getLocalStorage || defaultData as IData,
+  save,
 })
 
-export { state }
+export { localStorage }
