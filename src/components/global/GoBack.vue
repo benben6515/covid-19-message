@@ -8,7 +8,7 @@ const router = useRouter()
       class="btn m-3 text-sm mt-8"
       @click="router.back()"
     >
-      Back
+      ↵ Back
     </button>
   </div>
 </template>

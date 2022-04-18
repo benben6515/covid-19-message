@@ -6,27 +6,51 @@ import MessageTitle from '~/components/message/MessageTitle.vue'
 
 const data: any = localStorage.data
 const state = reactive({
-  newName: '',
-  newContent: '',
+  isEditing: false,
+  currentEditId: '',
+  inputName: '',
+  inputMessage: '',
   data,
 })
 
 const handleAddOrEdit = () => {
-  console.log(state.newName)
-  console.log(state.newContent)
-  state.data.push({
-    id: new Date().toISOString(),
-    name: state.newName,
-    content: state.newContent,
-  })
-  console.log(state.data)
+  if (state.isEditing) {
+    const temp = state.data.filter((e: any) => e.id === state.currentEditId)
+    temp[0].name = state.inputName
+    temp[0].message = state.inputMessage
+    state.isEditing = false
+    state.currentEditId = ''
+  }
+  else {
+    state.data.push({
+      id: new Date().toISOString(),
+      name: state.inputName,
+      message: state.inputMessage,
+      visitedTime: 0,
+    })
+  }
   localStorage.save(state.data)
+  state.inputName = ''
+  state.inputMessage = ''
+}
+
+// TODO: fix any type
+const setCurrentEdit = (data: any) => {
+  state.inputName = data.name
+  state.inputMessage = data.message
+  state.currentEditId = data.id
+  state.isEditing = true
 }
 
 // TODO: fix any type
 const handleDelete = (id: any) => {
   state.data = state.data.filter((e: any) => e.id !== id)
   localStorage.save(state.data)
+}
+
+const handleClear = () => {
+  window.localStorage.clear()
+  state.data = []
 }
 
 </script>
@@ -37,43 +61,47 @@ const handleDelete = (id: any) => {
   <div class="flex flex-col gap-4 items-center">
     <input
       id="input"
-      v-model="state.newName"
-      placeholder="Input memo"
+      v-model="state.inputName"
+      placeholder="Input name or memo"
       type="text"
       autocomplete="false"
       p="x-4 y-2"
       w="250px"
-      text="center"
       bg="transparent"
       border="~ rounded gray-200 dark:gray-700"
       outline="none active:none"
       @keydown.enter="handleAddOrEdit"
     >
 
-    <input
-      id="input"
-      v-model="state.newContent"
+    <textarea
+      id="textarea"
+      v-model="state.inputMessage"
       placeholder="Input message content"
       type="textarea"
-      row="5"
+      rows="5"
       autocomplete="false"
       p="x-4 y-2"
       w="250px"
-      text="center"
       bg="transparent"
       border="~ rounded gray-200 dark:gray-700"
       outline="none active:none"
       @keydown.enter="handleAddOrEdit"
-    >
+    />
 
     <div class="flex gap-4">
       <GoBack />
       <button
+        class="btn bg-red-500 hover:bg-red-400 m-3 text-sm mt-8"
+        @click="handleClear"
+      >
+        Clear
+      </button>
+      <button
         class="btn m-3 text-sm mt-8"
-        :disabled="!state.newName || !state.newContent"
+        :disabled="!state.inputName || !state.inputMessage"
         @click="handleAddOrEdit"
       >
-        Add
+        {{ state.isEditing ? 'Edit' : 'Add' }}
       </button>
     </div>
   </div>
@@ -84,19 +112,28 @@ const handleDelete = (id: any) => {
     <div
       v-for="chunk in state.data"
       :key="chunk.id"
-      class="flex justify-between bg-zinc-300"
+      class="flex justify-between bg-zinc-300 p-1 rounded-md"
       dark="bg-zinc-700"
     >
       <div class="px-2">
         {{ chunk.name }}
       </div>
-      <button
-        class="bg-red-500 px-1 rounded-md"
-        dark="bg-red-800"
-        @click="handleDelete(chunk.id)"
-      >
-        刪除
-      </button>
+      <div class="flex gap-2">
+        <button
+          class="bg-blue-500 px-1 rounded-md"
+          dark="bg-blue-800"
+          @click="setCurrentEdit(chunk)"
+        >
+          編輯
+        </button>
+        <button
+          class="bg-red-500 px-1 rounded-md"
+          dark="bg-red-800"
+          @click="handleDelete(chunk.id)"
+        >
+          刪除
+        </button>
+      </div>
     </div>
   </div>
 </template>

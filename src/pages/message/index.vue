@@ -15,20 +15,26 @@ const state = reactive({
 
 const os = platform?.os?.toString()
 
-const sendMessage = (content: any) => {
-  if (os && os.match(/Android/i))
-    window.location.replace(`sms:1922?body=${content}`)
-  if (os && os.match(/iOS/i))
-    window.location.replace(`sms:1922&body=${content}`)
-  console.error('Error: not legal OS')
-}
-
 const setFilterData = () => {
   state.filterData = data
     .filter((e: { name: string | string[] }) => e.name.includes(state.searchString))
-    .sort((a: { visitedTime: number }, b: { visitedTime: number }) => a.visitedTime - b.visitedTime)
-    .filter((e: any, i: number) => i <= 10)
+    .sort((a: { visitedTime: number }, b: { visitedTime: number }) => b.visitedTime - a.visitedTime)
+    .filter((e: any, i: number) => i < 10)
 }
+
+const sendMessage = (data: any) => {
+  data.visitedTime++
+  if (os && os.match(/Android/i))
+    window.location.replace(`sms:1922?body=${data.message}`)
+  if (os && os.match(/iOS/i))
+    window.location.replace(`sms:1922&body=${data.message}`)
+  localStorage.save(state.data)
+  setFilterData()
+  console.error('Error: not legal OS')
+}
+
+// init
+setFilterData()
 
 </script>
 
@@ -66,7 +72,7 @@ const setFilterData = () => {
     <div
       v-for="chunk in state.filterData"
       :key="chunk.id"
-      class="flex justify-between bg-zinc-100"
+      class="flex justify-between bg-zinc-100 p-1 rounded-md"
       dark="bg-zinc-800"
     >
       <div class="px-2">
@@ -75,7 +81,7 @@ const setFilterData = () => {
       <button
         class="bg-green-500 px-1 rounded-md"
         dark="bg-green-800"
-        @click="sendMessage(chunk.message)"
+        @click="sendMessage(chunk)"
       >
         發送
       </button>
