@@ -33,6 +33,10 @@ const sendMessage = (data: any) => {
   console.error('Error: not legal OS')
 }
 
+const router = useRouter()
+const goEditPage = () => {
+  router.push('/message/edit')
+}
 // init
 setFilterData()
 
@@ -54,15 +58,18 @@ setFilterData()
     border="~ rounded gray-200 dark:gray-700"
     outline="none active:none"
     @keydown.enter="setFilterData"
+    @input="setFilterData"
   >
 
   <div>
     <button
-      class="m-3 text-sm btn"
-      :disabled="!state.searchString"
-      @click="setFilterData"
+      class="m-3 text-sm btn bg-blue-600 hover:bg-blue-400"
+      @click="goEditPage"
     >
-      Search
+      <span
+        i-carbon-edit
+      >icon</span>
+      Edit
     </button>
   </div>
 

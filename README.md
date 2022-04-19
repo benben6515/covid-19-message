@@ -1,10 +1,18 @@
 # 1922 Message recorder
 
-> Too lazy to scan QRcode on those often go location
+![](https://img.shields.io/badge/version-1.0.0-22aa44?style=flat&logo=npm)
+![](https://img.shields.io/badge/github-benben6515-2244aa?style=flat&logo=github)
+
+---
+
+> Too lazy to scan QRcode on those locations which often to go
 
 Imagine that scenario, you are in a famous location.
+
 There are a lot of customer in a line to scan the QRcode, and so do you.(because you are a good law-abiding person, right?)
+
 So you have to stand at last position of the line, but you just want to scan the QRcode and send message.
+
 That why I build this project to deal with that scenario.
 
 ### DEMO
@@ -15,10 +23,12 @@ That why I build this project to deal with that scenario.
 
 ### Description
 
-- open it, and click button to send message to 1922
-- search it, search your record data
-- TODO: edit it, customize your personal location
-- TODO: delete it, customize your personal location
+- Open it, and click button to send message to 1922
+- Input it, create your data
+- Search it, search your record data
+- Edit it, customize your personal location
+- Delete it, customize your personal location
+- Clear it, clear your old data and start create new data
 
 ### This a side project base on `Vitesse` lite version
 

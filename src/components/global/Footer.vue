@@ -17,13 +17,5 @@ import { isDark, toggleDark } from '~/composables'
       target="_blank"
       title="GitHub"
     />
-
-    <a
-      class="icon-btn"
-      i-carbon-edit
-      rel="noreferrer"
-      href="/message/edit"
-      title="Edit message"
-    />
   </nav>
 </template>

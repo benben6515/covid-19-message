@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 // import data from '/data.json'
 import { localStorage } from '~/composables'
 import MessageTitle from '~/components/message/MessageTitle.vue'
@@ -44,13 +46,31 @@ const setCurrentEdit = (data: any) => {
 
 // TODO: fix any type
 const handleDelete = (id: any) => {
-  state.data = state.data.filter((e: any) => e.id !== id)
-  localStorage.save(state.data)
+  Swal.fire({
+    title: '確定要刪除？',
+    showCancelButton: true,
+    cancelButtonText: '取消',
+    confirmButtonText: '刪除',
+  }).then((result: any) => {
+    if (result.isConfirmed) {
+      state.data = state.data.filter((e: any) => e.id !== id)
+      localStorage.save(state.data)
+    }
+  })
 }
 
 const handleClear = () => {
-  window.localStorage.clear()
-  state.data = []
+  Swal.fire({
+    title: '確定要清除全部資料？',
+    cancelButtonText: '取消',
+    showCancelButton: true,
+    confirmButtonText: '消除',
+  }).then((result: any) => {
+    if (result.isConfirmed) {
+      window.localStorage.clear()
+      state.data = []
+    }
+  })
 }
 
 </script>
@@ -120,18 +140,27 @@ const handleClear = () => {
       </div>
       <div class="flex gap-2">
         <button
-          class="bg-blue-500 px-1 rounded-md"
+          class="bg-blue-400 px-1 rounded-md"
           dark="bg-blue-800"
           @click="setCurrentEdit(chunk)"
         >
           編輯
         </button>
         <button
-          class="bg-red-500 px-1 rounded-md"
+          v-if="chunk.id !== state.currentEditId"
+          class="bg-red-400 px-1 rounded-md"
           dark="bg-red-800"
           @click="handleDelete(chunk.id)"
         >
           刪除
+        </button>
+        <button
+          v-else
+          class="bg-gray-400 px-1 rounded-md cursor-not-allowed"
+          dark="bg-gray-600"
+          :disabled="true"
+        >
+          編輯中
         </button>
       </div>
     </div>
