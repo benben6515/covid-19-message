@@ -3,9 +3,10 @@
 ![](https://img.shields.io/badge/version-1.0.0-22aa44?style=flat&logo=npm)
 ![](https://img.shields.io/badge/github-benben6515-2244aa?style=flat&logo=github)
 
----
 
 > Too lazy to scan QRcode on those locations which often to go
+
+---
 
 Imagine that scenario, you are in a famous location.
 
